@@ -28,3 +28,58 @@
   - Purchase PO
   - Purchase A/P
   - Purchase Credit Memo
+
+
+## Details
+
+- Settings
+  - Company
+    ![](Sources/company.png)
+    ![](Sources/company_create.png)
+  - Branch
+    ![](Sources/branch.png)
+    ![](Sources/branch_create.png)
+  - Warehouse
+    ![](Sources/warehouse.png)
+  - Currency
+    ![](Sources/ccy.png)
+  - Exchange Rate
+    ![](Sources/exchange_rate.png)
+  - Payment Type
+    ![](Sources/payment_type.png)
+  - Tax
+    ![](Sources/tax.png)
+- Contacts
+  - Suppliers
+    ![](Sources/supplier.png)
+    ![](Sources/supplier_create.png)
+  - Customers
+    ![](Sources/customer.png)
+    ![](Sources/customer_create.png)
+  - Customers Group
+    ![](Sources/customer_group.png)
+    ![](Sources/customer_group_create.png)
+- User Management
+  - Users
+    ![](Sources/user.png)
+    ![](Sources/user_create.png)
+  - Roles
+    ![](Sources/role.png)
+    ![](Sources/role_create.png)
+- Products
+  - Price List
+    ![](Sources/price_list.png)
+  - Items
+    ![](Sources/item.png)
+    ![](Sources/item_create.png)
+  - Unit Of Measure
+    - Uom
+      ![](Sources/uom.png)
+    - Uom Group
+      ![](Sources/uom_group.png)
+- Purchases
+  - Purchase Order
+    ![](Sources/purchase_order.png)
+  - Purchase PO
+  - Purchase A/P
+  - Purchase Credit Memo
