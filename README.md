@@ -1,5 +1,16 @@
 # NN.POS.System 
 
+## Tech Stacks
+- Backend
+  - .NET(C#) [.NET Core](https://dotnet.microsoft.com/en-us/)
+  - SQL Server for Database [MSSQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+  - Structure as a Clean Architecture (CQRS) with Mediator [MediatR](https://github.com/jbogard/MediatR)
+  - Jwt as an authentication method [jwt.io](https://jwt.io/)
+  - Nlog as a logging
+- Web
+  - Blazor Framework [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
+  - MudBlazor as Component UI [mudblazor.com](https://mudblazor.com/)
+
 ## Features
 
 - Settings
