@@ -23,7 +23,7 @@
                 <MudItem lg="4" sm="4" xs="12">
                     <MudGrid>
                         <MudItem lg="12" sm="12" xs="12" Class="py-0">
-                            <MudTextField @bind-Value="_supplierName"
+                            <MudTextField @bind-Value="SupplierName"
                                           immediate="true"
                                           Variant="Variant.Outlined"
                                           Margin="Margin.Dense"
@@ -39,7 +39,7 @@
                                           Style="display: none" />
                         </MudItem>
                         <MudItem lg="12" sm="12" xs="12" Class="py-0">
-                            <MudTextField @bind-Value="_warehouseName"
+                            <MudTextField @bind-Value="WarehouseName"
                                           immediate="true"
                                           Variant="Variant.Outlined"
                                           Margin="Margin.Dense"
@@ -56,7 +56,7 @@
                         </MudItem>
 
                         <MudItem lg="12" sm="12" xs="12" Class="py-0">
-                            <MudTextField @bind-Value="_ccyName"
+                            <MudTextField @bind-Value="CcyName"
                                           immediate="true"
                                           Variant="Variant.Outlined"
                                           Margin="Margin.Dense"
@@ -134,7 +134,7 @@
             <MudGrid>
                 <MudItem lg="12" sm="12" xs="12">
                     <MudFocusTrap Disabled="@_disableAutoFocusBarcodeSearch" DefaultFocus="DefaultFocus.FirstChild">
-                        <MudTextField @bind-Value="_barcodeSearch"
+                        <MudTextField @bind-Value="BarcodeSearch"
                                       immediate="true"
                                       Variant="Variant.Outlined"
                                       Margin="Margin.Dense"
@@ -240,7 +240,7 @@
                 <MudItem lg="5" sm="5" xs="12">
                     <MudGrid>
                         <MudItem lg="12" sm="12" xs="12" Class="py-0">
-                            <MudTextField @bind-Value="_exchangeRate"
+                            <MudTextField @bind-Value="ExchangeRate"
                                           immediate="true"
                                           Variant="Variant.Outlined"
                                           Margin="Margin.Dense"
@@ -352,15 +352,15 @@
     private AuthenticateUser _user = new();
     private bool _disableAutoFocusBarcodeSearch;
 
-    private string? _supplierName;
-    private string? _warehouseName;
-    private string? _ccyName;
-    private string? _apiErrorMessages;
-    private string? _exchangeRate;
+    public string? SupplierName { get; private set; }
+    public string? WarehouseName { get; private set; }
+    public string? CcyName { get; private set; }
+    public string? ApiErrorMessages { get; private set; }
+    public string? ExchangeRate { get; private set; }
 
     private string _displayCcy = "";
 
-    private string _barcodeSearch = "";
+    public string BarcodeSearch { get; private set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -392,7 +392,7 @@
     private void BarcodeSearchByPressEnter(KeyboardEventArgs e)
     {
         if (e.Code is not ("Enter" or "NumpadEnter")) return;
-        _barcodeSearch = "";
+        BarcodeSearch = "";
         _disableAutoFocusBarcodeSearch = true;
     }
 
@@ -453,7 +453,7 @@
 
             var response = await httpClient.PostAsync($"{Setting.PrefixEndpoint}PurchaseOrder", requestContent);
 
-            _apiErrorMessages = await ErrorApiHelper.GetErrorMessageResponse(response,
+            ApiErrorMessages = await ErrorApiHelper.GetErrorMessageResponse(response,
                 () =>
                 {
                     NavigationManager.NavigateTo(RouteName.Login);
@@ -473,7 +473,7 @@
                 x => x.OnRefresh,
                 new EventCallbackFactory().Create<BusinessPartnerDto>(this, bp =>
                 {
-                    _supplierName = $"{bp.FirstName} {bp.LastName}";
+                    SupplierName = $"{bp.FirstName} {bp.LastName}";
                     _purModel.SupplyId = bp.Id;
                 })
             }
@@ -492,7 +492,7 @@
                 x => x.OnRefresh,
                 new EventCallbackFactory().Create<WarehouseDto>(this, ws =>
                 {
-                    _warehouseName = ws.Name;
+                    WarehouseName = ws.Name;
                     _purModel.WarehouseId = ws.Id;
                 })
             }
@@ -513,11 +513,11 @@
                 {
                     Console.WriteLine(JsonConvert.SerializeObject(ccy));
 
-                    _ccyName = $"{ccy.Name} {ccy.Symbol}";
+                    CcyName = $"{ccy.Name} {ccy.Symbol}";
                     _purModel.PurCcyId = ccy.Id;
 
-                    _exchangeRate = $"{ccy.ExchangeRate?.SetRate:N1} {ccy?.Name}({ccy?.Symbol}) = {_baseCurrency?.ExchangeRate?.Rate:N2} {_baseCurrency?.Name}({_baseCurrency?.Symbol})";
-                    _displayCcy = $"{ccy?.Name}({ccy?.Symbol})";
+                    ExchangeRate = $"{ccy.ExchangeRate?.SetRate:N1} {ccy.Name}({ccy.Symbol}) = {_baseCurrency?.ExchangeRate?.Rate:N2} {_baseCurrency?.Name}({_baseCurrency?.Symbol})";
+                    _displayCcy = $"{ccy.Name}({ccy.Symbol})";
                 })
             }
         };
@@ -560,7 +560,7 @@
                             {
                                 _items = _items.Select(i =>
                                 {
-                                    if (i.Id == purchaseItem?.Id && i.UomId == purchaseItem.UomId)
+                                    if (i.Id == purchaseItem.Id && i.UomId == purchaseItem.UomId)
                                     {
                                         i.Qty++;
                                     }
