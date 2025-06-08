@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+EXPOSE 8080
+
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+COPY ["NN.POS.Web/NN.POS.Web.csproj", "NN.POS.Web/"]
+COPY ["NN.POS.Common/NN.POS.Common.csproj", "NN.POS.Common/"]
+COPY ["NN.POS.Model/NN.POS.Model.csproj", "NN.POS.Model/"]
+RUN dotnet restore "NN.POS.Web/NN.POS.Web.csproj"
+COPY . .
+RUN dotnet build "NN.POS.Web/NN.POS.Web.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "NN.POS.Web/NN.POS.Web.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "NN.POS.Web.dll"]

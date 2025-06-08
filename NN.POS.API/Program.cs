@@ -12,6 +12,12 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    // Ensure Kestrel is configured to listen on port 8090
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(8090); // Listen on port 8090
+    });
+
     var env = builder.Environment.EnvironmentName;
 
     logger.Info("Application is on {Env} Environment", env);

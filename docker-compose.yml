@@ -1,0 +1,19 @@
+services:
+  nn.pos.api:
+    image: ${DOCKER_REGISTRY-}nn-pos-api
+    container_name: nn_pos_api
+    ports:
+      - "8090:8090"
+    build:
+      context: .
+      dockerfile: ApiDockerfile
+    restart: unless-stopped
+  nn.pos.web:
+    image: ${DOCKER_REGISTRY-}nn-pos-web
+    container_name: nn_pos_web
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: WebDockerfile
+    restart: unless-stopped
