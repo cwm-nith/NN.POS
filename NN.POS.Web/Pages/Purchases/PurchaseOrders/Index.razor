@@ -14,9 +14,9 @@
 
 @implements IDisposable
 
-<MudContainer Class="mb-5">
+<div class="m-2">
     <MudForm Model="_purModel" Validation="_purValidator.ValidateValue" @ref="_form">
-        <MudContainer>
+        <div>
             <MudText Typo="Typo.h6" Class="pb-4">Purchase Order</MudText>
 
             <MudGrid Justify="Justify.SpaceBetween">
@@ -128,9 +128,8 @@
                 </MudItem>
             </MudGrid>
 
-        </MudContainer>
-
-        <MudContainer>
+        </div>
+        <div>
             <MudGrid>
                 <MudItem lg="12" sm="12" xs="12">
                     <MudFocusTrap Disabled="@_disableAutoFocusBarcodeSearch" DefaultFocus="DefaultFocus.FirstChild">
@@ -172,33 +171,33 @@
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Code">@context.Code</MudTd>
-                        <MudTd DataLabel="Barcode">@context.Barcode</MudTd>
-                        <MudTd DataLabel="Name">@context.Name</MudTd>
-                        <MudTd DataLabel="Other">@context.OtherName</MudTd>
-                        <MudTd DataLabel="Qty">
-                            <MudTextField Value="context.Qty"
-                                          For="@(() => context.Qty)"
-                                          immediate="true"
-                                          Variant="Variant.Outlined"
-                                          Margin="Margin.Dense"
-                                          Style="width: 120px"
-                                          ValueChanged="@((decimal e )=> CalculationQty(context, e))" />
-                        </MudTd>
-                        <MudTd DataLabel="Cost">
-                            <MudTextField Value="context.PurchasePrice"
-                                          immediate="true"
-                                          Variant="Variant.Outlined"
-                                          Margin="Margin.Dense"
-                                          Style="width: 120px"
-                                          ValueChanged="@((decimal e )=> CalculationCost(context, e))" />
-                        </MudTd>
-                        <MudTd DataLabel="Discount Type">
-                            <MudSelect Value="context.DiscountType"
-                                       Variant="Variant.Outlined"
-                                       Margin="Margin.Dense"
-                                       Style="width: 120px"
-                                       ValueChanged="@((DiscountType v) => ChangeDiscountType(context, v))">
-                                @foreach (DiscountType option in Enum.GetValues(typeof(DiscountType)))
+                    <MudTd DataLabel="Barcode">@context.Barcode</MudTd>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Other">@context.OtherName</MudTd>
+                    <MudTd DataLabel="Qty">
+                        <MudTextField Value="context.Qty"
+                                      For="@(() => context.Qty)"
+                                      immediate="true"
+                                      Variant="Variant.Outlined"
+                                      Margin="Margin.Dense"
+                                      Style="width: 120px"
+                                      ValueChanged="@((decimal e) => CalculationQty(context, e))" />
+                    </MudTd>
+                    <MudTd DataLabel="Cost">
+                        <MudTextField Value="context.PurchasePrice"
+                                      immediate="true"
+                                      Variant="Variant.Outlined"
+                                      Margin="Margin.Dense"
+                                      Style="width: 120px"
+                                      ValueChanged="@((decimal e) => CalculationCost(context, e))" />
+                    </MudTd>
+                    <MudTd DataLabel="Discount Type">
+                        <MudSelect Value="context.DiscountType"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense"
+                                   Style="width: 120px"
+                                   ValueChanged="@((DiscountType v) => ChangeDiscountType(context, v))">
+                            @foreach (DiscountType option in Enum.GetValues(typeof(DiscountType)))
                             {
                                 <MudSelectItem Value="option" />
                             }
@@ -213,11 +212,11 @@
                                       ValueChanged="@((decimal v) => CalculateDiscount(context, v))" />
                     </MudTd>
                     <MudTd DataLabel="Total">@context.Total.ToString("N3")</MudTd>
-                        <MudTd DataLabel="Uoms">
-                            <MudSelect @bind-Value="context.UomId"
-                                       Variant="Variant.Outlined"
-                                       Margin="Margin.Dense">
-                                @foreach (var option in context.Uoms)
+                    <MudTd DataLabel="Uoms">
+                        <MudSelect @bind-Value="context.UomId"
+                                   Variant="Variant.Outlined"
+                                   Margin="Margin.Dense">
+                            @foreach (var option in context.Uoms)
                             {
                                 <MudSelectItem Value="@option.AltUomId">@option.AltUomName</MudSelectItem>
                             }
@@ -236,7 +235,7 @@
                 </LoadingContent>
             </MudTable>
             <br />
-            <MudGrid Justify="Justify.SpaceBetween">
+            <MudGrid Justify="Justify.SpaceBetween" Class="mt-2">
                 <MudItem lg="5" sm="5" xs="12">
                     <MudGrid>
                         <MudItem lg="12" sm="12" xs="12" Class="py-0">
@@ -305,7 +304,7 @@
                     </MudGrid>
                 </MudItem>
             </MudGrid>
-        </MudContainer>
+        </div>
         <br />
         <MudGrid Justify="Justify.FlexEnd">
             <MudItem lg="8" sm="6" xs="1"></MudItem>
@@ -327,18 +326,18 @@
             </MudItem>
         </MudGrid>
     </MudForm>
-</MudContainer>
+</div>
 
 @code {
 
     private readonly CreatePurchaseOrderDto _purModel = new()
-        {
-            Status = PurchaseStatus.Open,
-            DeliveryDate = DateTime.UtcNow,
-            DocumentDate = DateTime.UtcNow,
-            PostingDate = DateTime.UtcNow,
-            DiscountType = DiscountType.Percentage
-        };
+    {
+        Status = PurchaseStatus.Open,
+        DeliveryDate = DateTime.UtcNow,
+        DocumentDate = DateTime.UtcNow,
+        PostingDate = DateTime.UtcNow,
+        DiscountType = DiscountType.Percentage
+    };
 
     private readonly CreatePurchaseOrderValidation _purValidator = new();
 
@@ -378,8 +377,8 @@
         NavbarStateService.SetExpend(RouteName.Purchases);
         NavbarStateService.SetActive(RouteName.PurchasesOrder);
         NavbarStateService.SetBreadcrumbItems([
-            new BreadcrumbItem("Purchases", null, true),
-            new BreadcrumbItem("Purchase Order", null, true)
+        new BreadcrumbItem("Purchases", null, true),
+    new BreadcrumbItem("Purchase Order", null, true)
         ]);
         NavbarStateService.OnStateChange += StateHasChanged;
     }
@@ -412,14 +411,14 @@
         {
             var errors = await response.Content.ReadFromJsonAsync<ErrorResponse>();
             var parameters = new DialogParameters<ErrorDialog>
-            {
-                {
-                    x => x.Code, errors?.Code
-                },
-                {
-                    x => x.Content, "Prefix not found, please setup prefix"
-                }
-            };
+    {
+    {
+    x => x.Code, errors?.Code
+    },
+    {
+    x => x.Content, "Prefix not found, please setup prefix"
+    }
+    };
 
             var options = new DialogOptions { CloseButton = true };
 
@@ -433,17 +432,17 @@
         if (_form.IsValid)
         {
             _purModel.PurchaseOrderDetails = _items.Select(i => new CreatePurchaseOrderDetailDto
-                {
-                    DiscountType = i.DiscountType,
-                    DiscountValue = i.DiscountValue,
-                    ItemId = i.Id,
-                    LocalCcyId = _localCurrency?.Id ?? 0,
-                    PurchasePrice = i.PurchasePrice,
-                    Qty = i.Qty,
-                    Total = i.Total,
-                    TotalSys = i.TotalSys,
-                    UomId = i.UomId
-                }).ToList();
+            {
+                DiscountType = i.DiscountType,
+                DiscountValue = i.DiscountValue,
+                ItemId = i.Id,
+                LocalCcyId = _localCurrency?.Id ?? 0,
+                PurchasePrice = i.PurchasePrice,
+                Qty = i.Qty,
+                Total = i.Total,
+                TotalSys = i.TotalSys,
+                UomId = i.UomId
+            }).ToList();
             var jsonPayload = JsonConvert.SerializeObject(_purModel);
 
             Console.WriteLine(jsonPayload);
@@ -454,30 +453,30 @@
             var response = await httpClient.PostAsync($"{Setting.PrefixEndpoint}PurchaseOrder", requestContent);
 
             ApiErrorMessages = await ErrorApiHelper.GetErrorMessageResponse(response,
-                () =>
-                {
-                    NavigationManager.NavigateTo(RouteName.Login);
-                },
-                () =>
-                {
-                    NavigationManager.Refresh();
-                });
+            () =>
+            {
+                NavigationManager.NavigateTo(RouteName.Login);
+            },
+            () =>
+            {
+                NavigationManager.Refresh();
+            });
         }
     }
 
     private async Task ChooseSupplier()
     {
         var parameters = new DialogParameters<SelectSupplierDialog>
-        {
-            {
-                x => x.OnRefresh,
-                new EventCallbackFactory().Create<BusinessPartnerDto>(this, bp =>
-                {
-                    SupplierName = $"{bp.FirstName} {bp.LastName}";
-                    _purModel.SupplyId = bp.Id;
-                })
-            }
-        };
+    {
+    {
+    x => x.OnRefresh,
+    new EventCallbackFactory().Create<BusinessPartnerDto>(this, bp =>
+    {
+    SupplierName = $"{bp.FirstName} {bp.LastName}";
+    _purModel.SupplyId = bp.Id;
+    })
+    }
+    };
 
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
 
@@ -487,16 +486,16 @@
     private async Task ChooseWarehouse()
     {
         var parameters = new DialogParameters<SelectWarehouseDialog>
-        {
-            {
-                x => x.OnRefresh,
-                new EventCallbackFactory().Create<WarehouseDto>(this, ws =>
-                {
-                    WarehouseName = ws.Name;
-                    _purModel.WarehouseId = ws.Id;
-                })
-            }
-        };
+    {
+    {
+    x => x.OnRefresh,
+    new EventCallbackFactory().Create<WarehouseDto>(this, ws =>
+    {
+    WarehouseName = ws.Name;
+    _purModel.WarehouseId = ws.Id;
+    })
+    }
+    };
 
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
 
@@ -506,21 +505,21 @@
     private async Task ChooseCcy()
     {
         var parameters = new DialogParameters<SelectCurrencyDialog>
-        {
-            {
-                x => x.OnRefresh,
-                new EventCallbackFactory().Create<CurrencyDto>(this, ccy =>
-                {
-                    Console.WriteLine(JsonConvert.SerializeObject(ccy));
+    {
+    {
+    x => x.OnRefresh,
+    new EventCallbackFactory().Create<CurrencyDto>(this, ccy =>
+    {
+    Console.WriteLine(JsonConvert.SerializeObject(ccy));
 
-                    CcyName = $"{ccy.Name} {ccy.Symbol}";
-                    _purModel.PurCcyId = ccy.Id;
+    CcyName = $"{ccy.Name} {ccy.Symbol}";
+    _purModel.PurCcyId = ccy.Id;
 
-                    ExchangeRate = $"{ccy.ExchangeRate?.SetRate:N1} {ccy.Name}({ccy.Symbol}) = {_baseCurrency?.ExchangeRate?.Rate:N2} {_baseCurrency?.Name}({_baseCurrency?.Symbol})";
-                    _displayCcy = $"{ccy.Name}({ccy.Symbol})";
-                })
-            }
-        };
+    ExchangeRate = $"{ccy.ExchangeRate?.SetRate:N1} {ccy.Name}({ccy.Symbol}) = {_baseCurrency?.ExchangeRate?.Rate:N2} {_baseCurrency?.Name}({_baseCurrency?.Symbol})";
+    _displayCcy = $"{ccy.Name}({ccy.Symbol})";
+    })
+    }
+    };
 
         var options = new DialogOptions { CloseButton = true };
 
@@ -529,74 +528,74 @@
     private async Task ChooseItem()
     {
         var parameters = new DialogParameters<SelectItemMasterDataDialog>
-        {
-            {
-                x => x.AutoClose, false
-            },
-            {
-                x => x.IsPurchase, true
-            },
-            {
-                x => x.Type, ItemMasterDataType.Item
-            },
-            {
-                x => x.WsId, _purModel.WarehouseId
-            },
-            {
-                x => x.OnChoose,
-                new EventCallbackFactory().Create<ItemMasterDataDto>(this, async item =>
-                {
-                    var httpClient = HttpClientFactory.CreateClient(AppConstants.HttpClientName);
+    {
+    {
+    x => x.AutoClose, false
+    },
+    {
+    x => x.IsPurchase, true
+    },
+    {
+    x => x.Type, ItemMasterDataType.Item
+    },
+    {
+    x => x.WsId, _purModel.WarehouseId
+    },
+    {
+    x => x.OnChoose,
+    new EventCallbackFactory().Create<ItemMasterDataDto>(this, async item =>
+    {
+    var httpClient = HttpClientFactory.CreateClient(AppConstants.HttpClientName);
 
-                    var response = await httpClient.GetAsync($"{Setting.PrefixEndpoint}itemMasterData/get-purchase-item/{item.Id}?ccyId={_purModel.PurCcyId}&wsId={_purModel.WarehouseId}");
+    var response = await httpClient.GetAsync($"{Setting.PrefixEndpoint}itemMasterData/get-purchase-item/{item.Id}?ccyId={_purModel.PurCcyId}&wsId={_purModel.WarehouseId}");
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var purchaseItem = await response.Content.ReadFromJsonAsync<PurchaseItemDto>();
-                        if (purchaseItem is not null)
-                        {
-                            var itemExisted = _items.FirstOrDefault(i => i.Id == purchaseItem.Id && i.UomId == purchaseItem.UomId);
-                            if (itemExisted is not null)
-                            {
-                                _items = _items.Select(i =>
-                                {
-                                    if (i.Id == purchaseItem.Id && i.UomId == purchaseItem.UomId)
-                                    {
-                                        i.Qty++;
-                                    }
+    if (response.IsSuccessStatusCode)
+    {
+    var purchaseItem = await response.Content.ReadFromJsonAsync<PurchaseItemDto>();
+    if (purchaseItem is not null)
+    {
+    var itemExisted = _items.FirstOrDefault(i => i.Id == purchaseItem.Id && i.UomId == purchaseItem.UomId);
+    if (itemExisted is not null)
+    {
+    _items = _items.Select(i =>
+    {
+    if (i.Id == purchaseItem.Id && i.UomId == purchaseItem.UomId)
+    {
+    i.Qty++;
+    }
 
-                                    return i;
-                                }).ToList();
-                            }
-                            else
-                            {
-                                _items.Add(purchaseItem);
-                            }
+    return i;
+    }).ToList();
+    }
+    else
+    {
+    _items.Add(purchaseItem);
+    }
 
-                            CalculationTotalMaster();
-                        }
-                    }
-                    else
-                    {
-                        var errors = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-                        var parameters = new DialogParameters<ErrorDialog>
-                        {
-                            {
-                                x => x.Code, errors?.Code
-                            },
-                            {
-                                x => x.Content, errors?.Message
-                            }
-                        };
+    CalculationTotalMaster();
+    }
+    }
+    else
+    {
+    var errors = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+    var parameters = new DialogParameters<ErrorDialog>
+    {
+    {
+    x => x.Code, errors?.Code
+    },
+    {
+    x => x.Content, errors?.Message
+    }
+    };
 
-                        var options = new DialogOptions { CloseButton = true};
+    var options = new DialogOptions { CloseButton = true};
 
-                        await Dialog.ShowAsync<ErrorDialog>("", parameters, options);
-                    }
+    await Dialog.ShowAsync<ErrorDialog>("", parameters, options);
+    }
 
-                })
-            }
-        };
+    })
+    }
+    };
 
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
 
