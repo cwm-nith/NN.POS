@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.7" />
+
+    <PackageReference Include="Microsoft.NET.Sdk.WebAssembly.Pack" Version="9.0.7" />
     <None Include="wwwroot\Contents\login.png" />
     <None Include="wwwroot\Contents\LoginPage.jpg" />
   </ItemGroup>
