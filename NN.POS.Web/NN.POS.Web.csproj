@@ -33,7 +33,7 @@
 
     <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.12" />
 
-    <PackageReference Include="Microsoft.NET.Sdk.WebAssembly.Pack" Version="10.0.1" />
+    <PackageReference Include="Microsoft.NET.Sdk.WebAssembly.Pack" Version="10.0.2" />
     <None Include="wwwroot\Contents\login.png" />
     <None Include="wwwroot\Contents\LoginPage.jpg" />
   </ItemGroup>
